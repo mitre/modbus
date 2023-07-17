@@ -1,0 +1,25 @@
+---
+
+id: 0033b644-a615-4eff-bcf3-178e9b17adc3
+name: Sample Modbus Facts
+facts:
+- trait: device.modbus.ip
+  value: 127.0.0.1
+- trait: device.modbus.port
+  value: 5020
+- trait: modbus.read_di.start
+  value: 0
+- trait: modbus.read_di.count
+  value: 1
+- trait: modbus.write.start
+  value: 1
+- trait: modbus.write.value
+  value: 1
+- trait: modbus.toggle.start
+  value: 1
+- trait: modbus.toggle.end
+  value: 11
+- trait: modbus.toggle.count
+  value: 10
+rules: []
+relationships: []

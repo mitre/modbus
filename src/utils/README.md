@@ -1,0 +1,1 @@
+It is necessary to separate windows and linux utils for pyinstaller, as pyinstaller will just grab whichever upx is first if they are in the same directory.

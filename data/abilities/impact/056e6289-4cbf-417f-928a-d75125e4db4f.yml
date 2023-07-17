@@ -1,0 +1,26 @@
+---
+
+- id: 056e6289-4cbf-417f-928a-d75125e4db4f
+  name: Modbus Write Single Coil
+  description: |
+    Modbus Function 5 (0x05): Write Single Coil
+
+    This function code is used to write a single output to either ON or OFF in a remote device. Addressing starts at 0 (e.g. coil 1 = address 0).
+  tactic: impact
+  technique:
+    attack_id: T0831
+    name: Manipulation of Control
+  repeatable: true
+  platforms:
+    linux:
+      sh:
+        command:
+          './modbus_cli #{modbus.all.deviceip} --port #{modbus.all.deviceport} write_c #{modbus.write_c.start} #{modbus.write_c.value}'
+        payloads:
+        - modbus_cli
+    windows:
+      psh:
+        command:
+          '.\modbus_cli.exe #{modbus.all.deviceip} --port #{modbus.all.deviceport} write_c #{modbus.write_c.start} #{modbus.write_c.value}'
+        payloads:
+        - modbus_cli.exe

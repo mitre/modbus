@@ -1,0 +1,27 @@
+---
+
+- id: 2a6e8c8e-f350-11ed-9156-23436b8f0e58
+  name: Modbus Fuzz Registers
+  description: |
+    Procedure
+    Modbus Function 5 (0x05) Write Single Register
+
+    Writes random values to random registers over specified ranges. Addressing starts at 0 (e.g. registers 1-5 = addresses 0-4).
+  tactic: impact
+  technique:
+    attack_id: T0831
+    name: Manipulation of Control
+  repeatable: True
+  platforms:
+    linux:
+      sh:
+        command:
+          './modbus_cli #{modbus.all.deviceip} --port #{modbus.all.deviceport} fuzz_r #{modbus.fuzzreg.start} #{modbus.fuzzreg.end} #{modbus.fuzzreg.count} --min #{modbus.fuzzreg.min} --max #{modbus.fuzzreg.max} --wait #{modbus.fuzzreg.wait}'
+        payloads:
+        - modbus_cli
+    windows:
+      psh:
+        command:
+         '.\modbus_cli.exe #{modbus.all.deviceip} --port #{modbus.all.deviceport} fuzz_r #{modbus.fuzzreg.start} #{modbus.fuzzreg.end} #{modbus.fuzzreg.count} --min #{modbus.fuzzreg.min} --max #{modbus.fuzzreg.max} --wait #{modbus.fuzzreg.wait}'
+        payloads:
+        - modbus_cli.exe
