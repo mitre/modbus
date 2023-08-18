@@ -3,7 +3,7 @@ from plugins.modbus.app.modbus_gui import ModbusGUI
 from plugins.modbus.app.modbus_api import ModbusAPI
 
 name = 'Modbus'
-description = 'The Modbus plugin for CALDERA provides adversary emulation abilities specific to the Modbus control systems protocol.'
+description = 'The Modbus plugin for Caldera provides adversary emulation abilities specific to the Modbus control systems protocol.'
 address = '/plugin/modbus/gui'
 access = BaseWorld.Access.RED
 

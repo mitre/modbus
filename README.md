@@ -1,19 +1,19 @@
-# CALDERA for OT plugin: Modbus
+# Caldera for OT plugin: Modbus
 
-A [Caldera for OT](https://github.com/mitre/caldera-ot) plugin supplying [CALDERA](https://github.com/mitre/caldera) with Modbus protocol TTPs.
+A [Caldera for OT](https://github.com/mitre/caldera-ot) plugin supplying [Caldera](https://github.com/mitre/caldera) with Modbus protocol TTPs.
 This is part of a series of plugins that provide added threat emulation capability for Operational Technology (OT) environments.
 
 Full Modbus plugin [documentation](docs/modbus.md) can be viewed as part of fieldmanual, once the Caldera server is running.
 
 ## Installation
 
-To run CALDERA along with modbus plugin:
-1. Download CALDERA as detailed in the [Installation Guide](https://github.com/mitre/caldera)
-2. Install the modbus plugin in CALDERA's plugin directory: `caldera/plugins`
-3. Enable the modbus plugin by adding `- modbus` to the list of enabled plugins in `conf/local.yml` or `conf/default.yml` (if running CALDERA in insecure mode)
+To run Caldera along with modbus plugin:
+1. Download Caldera as detailed in the [Installation Guide](https://github.com/mitre/caldera)
+2. Install the modbus plugin in Caldera's plugin directory: `caldera/plugins`
+3. Enable the modbus plugin by adding `- modbus` to the list of enabled plugins in `conf/local.yml` or `conf/default.yml` (if running Caldera in insecure mode)
 
 ### Version
-This plugin is compatible with the current version of CALDERA v4.1.0 as of 26 Jan 2023. This can be checked out using the following method:
+This plugin is compatible with the current version of Caldera v4.1.0 as of 26 Jan 2023. This can be checked out using the following method:
 ```
 git clone --recursive https://github.com/mitre/caldera.git
 ```

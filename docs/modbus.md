@@ -10,7 +10,7 @@ The Modbus plugin provides adversary emulation abilities specific to the Modbus 
 |Point & Tag Identification|Manipulation of Control
 
 ### Compatability
-The plugin payload(s) currently support deployment to CALDERA agents for the following computer architectures:
+The plugin payload(s) currently support deployment to Caldera agents for the following computer architectures:
 |      |Windows |Linux | Macintosh|
 |-----:|:------:|:----:|:--------:|
 |32-bit|        |      |          |
@@ -46,7 +46,7 @@ This section describes the main components of the plugin and how they interface.
 ### Block Diagram
 ![block diagram](assets/modbus_diagram.jpg)
 
-The Modbus Plugin allows a user to execute several abilities once added to the CALDERA instance. The abilities will be executed via the CALDERA agent and corresponding payload. This is intended to target devices communicating via the Modbus protocol, likely over port 502.
+The Modbus Plugin allows a user to execute several abilities once added to the Caldera instance. The abilities will be executed via the Caldera agent and corresponding payload. This is intended to target devices communicating via the Modbus protocol, likely over port 502.
 
 ### Payloads
 
@@ -69,11 +69,11 @@ This section describes how to initially deploy and execute the abilities present
 
 ### Deployment
 1. Identify the target system you would like to communicate with via the Modbus protocol.
-2. Identify a viable host for the CALDERA agent that will be sending Modbus messages to the target system.
-3. Deploy the CALDERA agent to the viable host.
+2. Identify a viable host for the Caldera agent that will be sending Modbus messages to the target system.
+3. Deploy the Caldera agent to the viable host.
 4. Run any of the Modbus plugin abilities listed below to achieve desired impact.
 
-*Reference the CALDERA training plugin for a step-by-step tutorial on how to deploy an agent and run abilities via a campaign.*
+*Reference the Caldera training plugin for a step-by-step tutorial on how to deploy an agent and run abilities via a campaign.*
 
 #### Modbus Sources and Facts
 
@@ -369,4 +369,4 @@ The source code for the Modbus plugin can be found inside this plugin's [src dir
 ## Copyright Notice
 Modbus® is a registered trademark of SCHNEIDER ELECTRIC USA, INC. CORPORATION DELAWARE 1415 SOUTH ROSELLE ROAD PALATINE ILLINOIS 60067
 
-This CALDERA plugin is named "Modbus" as that is a short identifier of its purpose / scope. This plugin is not produced-by Schneider Electric or The Modbus Corporation.
+This Caldera plugin is named "Modbus" as that is a short identifier of its purpose / scope. This plugin is not produced-by Schneider Electric or The Modbus Corporation.

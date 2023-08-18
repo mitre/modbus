@@ -1,12 +1,12 @@
 # Modbus Plugin Code
 
-Where possible, the CALDERA for OT plugins leverage open-source libraries and payloads, unifying their exposure through the Caldera Adversary Emulation framework.
+Where possible, the Caldera for OT plugins leverage open-source libraries and payloads, unifying their exposure through the Caldera Adversary Emulation framework.
 
 * The Modbus plugin leverages the open-source python library [PyModbus](https://github.com/pymodbus-dev/pymodbus/tree/v2.5.3) - version 2.5.3.
 
 * The PyModbus library v2.5.3 is licensed with the BSD 3-Clause License [license](https://github.com/pymodbus-dev/pymodbus/blob/v2.5.3/LICENSE)
 
-* A custom command-line interface was created by our team for the PyModbus library to allow for CALDERA agent interoperability. The CLI payload comes precompiled with the plugin, but can be recompiled following the instructions below.
+* A custom command-line interface was created by our team for the PyModbus library to allow for Caldera agent interoperability. The CLI payload comes precompiled with the plugin, but can be recompiled following the instructions below.
 
 ## Reproducing Builds
 The linux payload was compiled with Ubuntu 22.04.2 LTS, Python version 3.8-dev, Pyinstaller 5.10.1.
