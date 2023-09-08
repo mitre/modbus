@@ -4,7 +4,7 @@
   name: Modbus Fuzz Registers
   description: |
     Procedure
-    Modbus Function 5 (0x05) Write Single Register
+    Modbus Function 6 (0x06) Write Single Register
 
     Writes random values to random registers over specified ranges. Addressing starts at 0 (e.g. registers 1-5 = addresses 0-4).
   tactic: impact
@@ -16,12 +16,12 @@
     linux:
       sh:
         command:
-          './modbus_cli #{modbus.all.deviceip} --port #{modbus.all.deviceport} fuzz_r #{modbus.fuzzreg.start} #{modbus.fuzzreg.end} #{modbus.fuzzreg.count} --min #{modbus.fuzzreg.min} --max #{modbus.fuzzreg.max} --wait #{modbus.fuzzreg.wait}'
+          './modbus_cli #{modbus.server.ip} --port #{modbus.server.port} fuzz_r #{modbus.fuzz.holding.start} #{modbus.fuzz.holding.end} #{modbus.fuzz.holding.count} --min #{modbus.fuzz.holding.min} --max #{modbus.fuzz.holding.max} --wait #{modbus.fuzz.holding.wait}'
         payloads:
         - modbus_cli
     windows:
       psh:
         command:
-         '.\modbus_cli.exe #{modbus.all.deviceip} --port #{modbus.all.deviceport} fuzz_r #{modbus.fuzzreg.start} #{modbus.fuzzreg.end} #{modbus.fuzzreg.count} --min #{modbus.fuzzreg.min} --max #{modbus.fuzzreg.max} --wait #{modbus.fuzzreg.wait}'
+         '.\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} fuzz_r #{modbus.fuzz.holding.start} #{modbus.fuzz.holding.end} #{modbus.fuzz.holding.count} --min #{modbus.fuzz.holding.min} --max #{modbus.fuzz.holding.max} --wait #{modbus.fuzz.holding.wait}'
         payloads:
         - modbus_cli.exe

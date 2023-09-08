@@ -16,12 +16,12 @@
     linux:
       sh:
         command:
-          './modbus_cli #{modbus.all.deviceip} --port #{modbus.all.deviceport} fuzz_c #{modbus.fuzzcoil.start} #{modbus.fuzzcoil.end} #{modbus.fuzzcoil.count} --wait #{modbus.fuzzcoil.wait}'
+          './modbus_cli #{modbus.server.ip} --port #{modbus.server.port} fuzz_c #{modbus.fuzz.coil.start} #{modbus.fuzz.coil.end} #{modbus.fuzz.coil.count} --wait #{modbus.fuzz.coil.wait}'
         payloads:
         - modbus_cli
     windows:
       psh:
         command:
-         '.\modbus_cli.exe #{modbus.all.deviceip} --port #{modbus.all.deviceport} fuzz_c #{modbus.fuzzcoil.start} #{modbus.fuzzcoil.end} #{modbus.fuzzcoil.count} --wait #{modbus.fuzzcoil.wait}'
+         '.\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} fuzz_c #{modbus.fuzz.coil.start} #{modbus.fuzz.coil.end} #{modbus.fuzz.coil.count} --wait #{modbus.fuzz.coil.wait}'
         payloads:
         - modbus_cli.exe
