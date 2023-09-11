@@ -84,62 +84,60 @@ Key:
 - [**X**] = Ability uses this fact
 
 
-| Fact Name/Ability Used By | Read Coil	 | Read Discrete Input | Read Input Register | Read Holding Register |
-|---------                  |---------   |---------	           |---------	         |---------              |
-| modbus.all.deviceip       | [**X**]    | [**X**]             |[**X**]              | [**X**]               |
-| modbus.all.deviceport     | [**X**]    | [**X**]             |[**X**]              | [**X**]               |
-| modbus.read_c.start       | [**X**]    | [-]                 |[-]                  | [-]                   |
-| modbus.read_c.count       | [**X**]    | [-]                 |[-]                  | [-]                   |
-| modbus.read_di.start      | [-]        | [**X**]             |[-]                  | [-]                   |
-| modbus.read_di.count      | [-]        | [**X**]             |[-]                  | [-]                   |
-| modbus.read_ir.start      | [-]        | [-]                 |[**X**]              | [-]                   |
-| modbus.read_ir.count      | [-]        | [-]                 |[**X**]              | [-]                   |
-| modbus.read_hr.start      | [-]        | [-]                 |[-]                  | [**X**]               |
-| modbus.read_hr.count      | [-]        | [-]                 |[-]                  | [**X**]               |
+| Fact Name/Ability Used By  | Read Coil  | Read Discrete Input | Read Input Register | Read Holding Register |
+|---------                   |---------   |---------            |---------	          |---------              |
+| modbus.server.ip           | [**X**]    | [**X**]             |[**X**]              | [**X**]               |
+| modbus.server.port         | [**X**]    | [**X**]             |[**X**]              | [**X**]               |
+| modbus.read.coil.start     | [**X**]    | [-]                 |[-]                  | [-]                   |
+| modbus.read.coil.count     | [**X**]    | [-]                 |[-]                  | [-]                   |
+| modbus.read.discrete.start | [-]        | [**X**]             |[-]                  | [-]                   |
+| modbus.read.discrete.count | [-]        | [**X**]             |[-]                  | [-]                   |
+| modbus.read.input.start    | [-]        | [-]                 |[**X**]              | [-]                   |
+| modbus.read.input.count    | [-]        | [-]                 |[**X**]              | [-]                   |
+| modbus.read.holding.start  | [-]        | [-]                 |[-]                  | [**X**]               |
+| modbus.read.holding.count  | [-]        | [-]                 |[-]                  | [**X**]               |
 
-| Fact Name/Ability Used By | Write Coil | Write Register | Write Multiple Coils | Write Multiple Registers |
-|---------                  |---------   |---------	      |---------	         |---------                 |
-| modbus.all.deviceip       | [**X**]    | [**X**]        |[**X**]               | [**X**]                  |
-| modbus.all.deviceport     | [**X**]    | [**X**]        |[**X**]               | [**X**]                  |
-| modbus.write_c.start      | [**X**]    | [-]            |[-]                   | [-]                      |
-| modbus.write_c.value      | [**X**]    | [-]            |[-]                   | [-]                      |
-| modbus.read_di.start      | [-]        | [**X**]        |[-]                   | [-]                      |
-| modbus.read_di.count      | [-]        | [**X**]        |[-]                   | [-]                      |
-| modbus.read_ir.start      | [-]        | [-]            |[**X**]               | [-]                      |
-| modbus.read_ir.count      | [-]        | [-]            |[**X**]               | [-]                      |
-| modbus.read_hr.start      | [-]        | [-]            |[-]                   | [**X**]                  |
-| modbus.read_hr.count      | [-]        | [-]            |[-]                   | [**X**]                  |
+| Fact Name/Ability Used By   | Write Coil | Write Register | Write Multiple Coils | Write Multiple Registers |
+|---------                    |---------   |---------	    |---------	           |---------                 |
+| modbus.server.ip            | [**X**]    | [**X**]        |[**X**]               | [**X**]                  |
+| modbus.server.port          | [**X**]    | [**X**]        |[**X**]               | [**X**]                  |
+| modbus.write.coil.start     | [**X**]    | [-]            |[**X**]               | [-]                      |
+| modbus.write.coil.value     | [**X**]    | [-]            |[**X**]               | [-]                      |
+| modbus.write.coil.count     | [-]        | [-]            |[**X**]               | [-]                      |
+| modbus.write.holding.start  | [-]        | [**X**]        |[-]                   | [**X**]                  |
+| modbus.write.holding.value  | [-]        | [**X**]        |[-]                   | [**X**]                  |
+| modbus.write.holding.count  | [-]        | [-]            |[-]                   | [**X**]                  |
 
 | Fact Name/Ability Used By | Fuzz Coils | Fuzz Registers|
 |---------                  |---------   |---------	     |
-| modbus.all.deviceip       | [**X**]    | [**X**]       |
-| modbus.all.deviceport     | [**X**]    | [**X**]       |
-| modbus.fuzzcoil.start     | [**X**]    | [-]           |
-| modbus.fuzzcoil.end       | [**X**]    | [-]           |
-| modbus.fuzzcoil.count     | [**X**]    | [-]           |
-| modbus.fuzzcoil.wait      | [**X**]    | [-]           |
-| modbus.fuzzreg.start      | [-]        | [**X**]       |
-| modbus.fuzzreg.end        | [-]        | [**X**]       |
-| modbus.fuzzreg.count      | [-]        | [**X**]       |
-| modbus.fuzzreg.min        | [-]        | [**X**]       |
-| modbus.fuzzreg.max        | [-]        | [**X**]       |
-| modbus.fuzzreg.wait       | [-]        | [**X**]       |
+| modbus.server.ip          | [**X**]    | [**X**]       |
+| modbus.server.port        | [**X**]    | [**X**]       |
+| modbus.fuzz.coil.start    | [**X**]    | [-]           |
+| modbus.fuzz.coil.end      | [**X**]    | [-]           |
+| modbus.fuzz.coil.count    | [**X**]    | [-]           |
+| modbus.fuzz.coil.wait     | [**X**]    | [-]           |
+| modbus.fuzz.holding.start | [-]        | [**X**]       |
+| modbus.fuzz.holding.end   | [-]        | [**X**]       |
+| modbus.fuzz.holding.count | [-]        | [**X**]       |
+| modbus.fuzz.holding.min   | [-]        | [**X**]       |
+| modbus.fuzz.holding.max   | [-]        | [**X**]       |
+| modbus.fuzz.holding.wait  | [-]        | [**X**]       |
 
 ####  Sample Facts - Modbus
     ...
     name: Modbus Sample Facts
     facts:
-    - trait: modbus.all.deviceip
+    - trait: modbus.server.ip
       value: 192.168.0.1
-    - trait: modbus.all.deviceport
+    - trait: modbus.server.port
       value: 5020
-	- trait: modbus.fuzzcoil.start
+	- trait: modbus.fuzz.coil.start
 	  value: 10
-	- trait: modbus.fuzzcoil.end
+	- trait: modbus.fuzz.coil.end
 	  value: 15
-	- trait: modbus.fuzzcoil.count
+	- trait: modbus.fuzz.coil.count
 	  value: 100
-	- trait: modbus.fuzzcoil.wait
+	- trait: modbus.fuzz.coil.wait
 	  value: 1
     ...
 
