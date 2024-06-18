@@ -13,7 +13,7 @@ To run Caldera along with modbus plugin:
 3. Enable the modbus plugin by adding `- modbus` to the list of enabled plugins in `conf/local.yml` or `conf/default.yml` (if running Caldera in insecure mode)
 
 ### Version
-This plugin is compatible with the current version of Caldera v4.1.0 as of 26 Jan 2023. This can be checked out using the following method:
+This plugin is compatible with Caldera version 4.2.0 and version 5.0.0. The latest version of Caldera can be checked out using the following method:
 ```
 git clone --recursive https://github.com/mitre/caldera.git
 ```
