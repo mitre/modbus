@@ -15,12 +15,12 @@
     linux:
       sh:
         command:
-          './modbus_cli #{modbus.all.deviceip} --port #{modbus.all.deviceport} read_ir #{modbus.read_ir.start} #{modbus.read_ir.count}'
+          './modbus_cli #{modbus.server.ip} --port #{modbus.server.port} read_ir #{modbus.read.input.start} #{modbus.read.input.count}'
         payloads:
         - modbus_cli
     windows:
       psh:
         command:
-          '.\modbus_cli.exe #{modbus.all.deviceip} --port #{modbus.all.deviceport} read_ir #{modbus.read_ir.start} #{modbus.read_ir.count}'
+          '.\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} read_ir #{modbus.read.input.start} #{modbus.read.input.count}'
         payloads:
         - modbus_cli.exe
