@@ -9,8 +9,8 @@
     Writes random values to random coils over specified ranges. Addressing starts at 0 (e.g. coils 1-5 = addresses 0-4).
   tactic: impact
   technique:
-    attack_id: T0831
-    name: Manipulation of Control
+    attack_id: T0806
+    name: Brute Force I/O
   repeatable: True
   platforms:
     linux:

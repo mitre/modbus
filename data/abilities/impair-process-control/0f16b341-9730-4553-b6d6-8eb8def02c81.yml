@@ -8,8 +8,8 @@
     This function code is used to write a block of contiguous holding registers (1 to 123 registers) in a remote device. Addressing starts at 0 (e.g. holding registers 1-5 = addresses 0-4).
   tactic: impact
   technique:
-    attack_id: T0831
-    name: Manipulation of Control
+    attack_id: T0806
+    name: Brute Force I/O
   repeatable: True
   platforms:
     linux:

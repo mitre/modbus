@@ -5,9 +5,11 @@ Modbus Protocol Threat Emulation Tooling
 ## Overview
 The Modbus plugin provides adversary emulation abilities specific to the Modbus protocol. The specification for the Modbus protocol is free and available to download from the Modbus organization at [modbus.org](https:www.modbus.org/specs.php) The following table outlines MITRE ATT&CK for ICS Tactic coverage provided by the Modbus plugin.
 
-|Collection                |Impact
-|:-------------------------|:-
-|Point & Tag Identification|Manipulation of Control
+|Collection                | Impair Process Control |
+|:-------------------------|:----------------------|
+|Point & Tag Identification| Brute Force I/O |
+|                          | Modify Parameter |
+
 
 ### Compatability
 The plugin payload(s) currently support deployment to Caldera agents for the following computer architectures:
@@ -22,7 +24,7 @@ The plugin payload(s) currently support deployment to Caldera agents for the fol
 ### Ability Overview Tables
 The following tables list each plugin ability by their corresponding tactic. A heatmap of plugin abilities is available to view [here](assets/heatmap.jpg).
 
-#### **Collection Abilities**
+#### Collection Abilities
 | Name 	                | Tactic 	        | Technique |  Technique ID     |
 |----------             |---------          |-----------|----------         |
 |[Modbus Read Coils](#read-coils)  |Collection  |Point & Tag Identification  |T0861  |
@@ -30,15 +32,15 @@ The following tables list each plugin ability by their corresponding tactic. A h
 |[Modbus Read Holding Registers](#read-holding-registers)  |Collection  |Point & Tag Identification  |T0861  |
 |[Modbus Read Input Registers](#read-input-registers)  |Collection  |Point & Tag Identification  |T0861  |
 
-#### **Impact Abilities**
+#### Impair Process Control Abilities
 | Name 	                | Tactic 	        | Technique |  Technique ID     |
 |----------             |---------          |-----------|----------         |
-|[Modbus Write Single Coil](#write-single-coil)  |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Write Single Register](#write-single-register)  |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Write Multiple Coils](#write-multiple-coils) |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Write Multiple Registers](#write-multiple-registers)  |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Fuzz Coils](#fuzz-coils)  |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Fuzz Registers](#fuzz-registers)  |Impact  |Manipulation of Control  |T0831  |
+|[Modbus Write Single Coil](#write-single-coil)  |Impair Process Control  | Modify Parameter  |T0836  |
+|[Modbus Write Single Register](#write-single-register)  |Impair Process Control  | Modify Parameter  |T0836  |
+|[Modbus Write Multiple Coils](#write-multiple-coils) |Impair Process Control  | Brute Force I/O  |T0806  |
+|[Modbus Write Multiple Registers](#write-multiple-registers)  |Impair Process Control  | Brute Force I/O  |T0806  |
+|[Modbus Fuzz Coils](#fuzz-coils)  |Impair Process Control  | Brute Force I/O  |T0806  |
+|[Modbus Fuzz Registers](#fuzz-registers)  |Impair Process Control  | Brute Force I/O  |T0806  |
 
 ## Architecture
 

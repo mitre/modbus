@@ -8,8 +8,8 @@
     This function code is used to write a single holding register in a remote device. Addressing starts at 0 (e.g. holding register 1 = address 0).
   tactic: impact
   technique:
-    attack_id: T0831
-    name: Manipulation of Control
+    attack_id: T0836
+    name: Modify Parameter
   repeatable: true
   platforms:
     linux:
