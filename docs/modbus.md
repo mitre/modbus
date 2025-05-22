@@ -63,7 +63,6 @@ The following libraries were used to build the Modbus payloads:
 | Library | Version	 | License |
 |---------|--------- |---------|
 |pymodbus |[3.9.2](https://github.com/pymodbus-dev/pymodbus/tree/v3.9.2) |[BSD](https://github.com/pymodbus-dev/pymodbus/blob/v3.9.2/LICENSE)      |
-|pyserial |[3.5](https://github.com/pyserial/pyserial/tree/v3.5)    |[BSD](https://github.com/pyserial/pyserial/blob/v3.5/LICENSE.txt)      |
 
 
 ## Usage
