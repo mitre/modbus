@@ -52,7 +52,7 @@ The payloads were compiled in the following environments:
 
 |            | Linux | Windows |
 |------------|-------|---------|
-| OS Version | Linux-6.9.0-60-generic-x86_64-with-glibc2.36 | Windows-10-10.0.19043-SP0 |
+| OS Version | Linux-6.8.0-60-generic-x86_64-with-glibc2.31 | Windows-10-10.0.19043-SP0 |
 | Python Version | 3.13.3 | 3.13.3 |
 | PyInstaller | 6.13.0 | 6.13.0 |
 
