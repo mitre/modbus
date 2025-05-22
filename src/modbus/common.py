@@ -9,7 +9,7 @@ class Context:
     def __init__(self, client=None):
         self.client = client
         # Type of transport
-        self.transport = None  # TODO: make enum
+        self.transport = None
         # Whether or not the last action failed
         self.last_failed = False
         # Recent results
@@ -89,6 +89,4 @@ class ActionClientInterface(ABC):
     def get(self, name):
         """Returns an action function pointer by name."""
         # Polymorphic, will get the action_map of the object's class
-        return self.action_map.get(
-            name, None
-        )  # TODO: Raise exception instead of returning None?
+        return self.action_map.get(name, None)
