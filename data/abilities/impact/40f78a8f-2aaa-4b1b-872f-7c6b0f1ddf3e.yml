@@ -15,13 +15,17 @@
   platforms:
     linux:
       sh:
-        command:
-          './modbus_cli #{modbus.server.ip} --port #{modbus.server.port} fuzz_c #{modbus.fuzz.coil.start} #{modbus.fuzz.coil.end} #{modbus.fuzz.coil.count} --wait #{modbus.fuzz.coil.wait}'
+        command: >
+          ./modbus_cli #{modbus.server.ip} --port #{modbus.server.port} fuzz_c 
+          #{modbus.fuzz_coil.start} #{modbus.fuzz_coil.end} #{modbus.fuzz_coil.count} 
+          --wait #{modbus.fuzz_coil.wait}
         payloads:
         - modbus_cli
     windows:
       psh:
-        command:
-         '.\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} fuzz_c #{modbus.fuzz.coil.start} #{modbus.fuzz.coil.end} #{modbus.fuzz.coil.count} --wait #{modbus.fuzz.coil.wait}'
+        command: >
+         .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} fuzz_c 
+         #{modbus.fuzz_coil.start} #{modbus.fuzz_coil.end} #{modbus.fuzz_coil.count} 
+         --wait #{modbus.fuzz_coil.wait}
         payloads:
         - modbus_cli.exe

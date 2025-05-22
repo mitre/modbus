@@ -14,13 +14,13 @@
   platforms:
     linux:
       sh:
-        command:
-          './modbus_cli #{modbus.server.ip} --port #{modbus.server.port} read_hr #{modbus.read.holding.start} #{modbus.read.holding.count}'
+        command: >
+          ./modbus_cli #{modbus.server.ip} --port #{modbus.server.port} read_hr #{modbus.read_holding.start} #{modbus.read_holding.count}
         payloads:
         - modbus_cli
     windows:
       psh:
-        command:
-          '.\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} read_hr #{modbus.read.holding.start} #{modbus.read.holding.count}'
+        command: >
+          .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} read_hr #{modbus.read_holding.start} #{modbus.read_holding.count}
         payloads:
         - modbus_cli.exe

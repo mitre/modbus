@@ -7,13 +7,23 @@ facts:
   value: 127.0.0.1
 - trait: modbus.server.port
   value: 502
-- trait: modbus.read.discrete.start
+- trait: modbus.read_discrete.start
   value: 10000
-- trait: modbus.read.discrete.count
+- trait: modbus.read_discrete.count
   value: 1
-- trait: modbus.write.coil.start
+- trait: modbus.write_register.start
+  value: 10000
+- trait: modbus.write_register.value
+  value: 123
+- trait: modbus.write_register.values
+  value: 123,43
+- trait: modbus.write_coil.start
   value: 0
-- trait: modbus.write.coil.value
-  value: 0
+- trait: modbus.write_coil.value
+  value: 'ON'
+- trait: modbus.write_coil.value
+  value: 'OFF'
+- trait: modbus.write_coil.values
+  value: ON,OFF
 rules: []
 relationships: []

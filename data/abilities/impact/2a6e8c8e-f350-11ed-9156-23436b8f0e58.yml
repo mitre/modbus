@@ -15,13 +15,17 @@
   platforms:
     linux:
       sh:
-        command:
-          './modbus_cli #{modbus.server.ip} --port #{modbus.server.port} fuzz_r #{modbus.fuzz.holding.start} #{modbus.fuzz.holding.end} #{modbus.fuzz.holding.count} --min #{modbus.fuzz.holding.min} --max #{modbus.fuzz.holding.max} --wait #{modbus.fuzz.holding.wait}'
+        command: >
+          ./modbus_cli #{modbus.server.ip} --port #{modbus.server.port} fuzz_r 
+          #{modbus.fuzz_register.start} #{modbus.fuzz_register.end} #{modbus.fuzz_register.count} 
+          --min #{modbus.fuzz_register.min} --max #{modbus.fuzz_register.max} --wait #{modbus.fuzz_register.wait}
         payloads:
         - modbus_cli
     windows:
       psh:
-        command:
-         '.\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} fuzz_r #{modbus.fuzz.holding.start} #{modbus.fuzz.holding.end} #{modbus.fuzz.holding.count} --min #{modbus.fuzz.holding.min} --max #{modbus.fuzz.holding.max} --wait #{modbus.fuzz.holding.wait}'
+        command: >
+          .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} fuzz_r 
+          #{modbus.fuzz_register.start} #{modbus.fuzz_register.end} #{modbus.fuzz_register.count} 
+          --min #{modbus.fuzz_register.min} --max #{modbus.fuzz_register.max} --wait #{modbus.fuzz_register.wait}
         payloads:
         - modbus_cli.exe

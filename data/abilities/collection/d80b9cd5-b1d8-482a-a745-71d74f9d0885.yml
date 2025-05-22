@@ -14,13 +14,13 @@
   platforms:
     linux:
       sh:
-        command:
-          './modbus_cli #{modbus.server.ip} --port #{modbus.server.port} read_c #{modbus.read.coil.start} #{modbus.read.coil.count}'
+        command: >
+          ./modbus_cli #{modbus.server.ip} --port #{modbus.server.port} read_c #{modbus.read_coil.start} #{modbus.read_coil.count}
         payloads:
         - modbus_cli
     windows:
       psh:
-        command:
-          '.\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} read_c #{modbus.read.coil.start} #{modbus.read.coil.count}'
+        command: >
+          .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} read_c #{modbus.read_coil.start} #{modbus.read_coil.count}
         payloads:
         - modbus_cli.exe

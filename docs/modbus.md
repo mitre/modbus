@@ -88,40 +88,40 @@ Key:
 |---------                   |---------   |---------            |---------	          |---------              |
 | modbus.server.ip           | [**X**]    | [**X**]             |[**X**]              | [**X**]               |
 | modbus.server.port         | [**X**]    | [**X**]             |[**X**]              | [**X**]               |
-| modbus.read.coil.start     | [**X**]    | [-]                 |[-]                  | [-]                   |
-| modbus.read.coil.count     | [**X**]    | [-]                 |[-]                  | [-]                   |
-| modbus.read.discrete.start | [-]        | [**X**]             |[-]                  | [-]                   |
-| modbus.read.discrete.count | [-]        | [**X**]             |[-]                  | [-]                   |
-| modbus.read.input.start    | [-]        | [-]                 |[**X**]              | [-]                   |
-| modbus.read.input.count    | [-]        | [-]                 |[**X**]              | [-]                   |
-| modbus.read.holding.start  | [-]        | [-]                 |[-]                  | [**X**]               |
-| modbus.read.holding.count  | [-]        | [-]                 |[-]                  | [**X**]               |
+| modbus.read_coil.start     | [**X**]    | [-]                 |[-]                  | [-]                   |
+| modbus.read_coil.count     | [**X**]    | [-]                 |[-]                  | [-]                   |
+| modbus.read_discrete.start | [-]        | [**X**]             |[-]                  | [-]                   |
+| modbus.read_discrete.count | [-]        | [**X**]             |[-]                  | [-]                   |
+| modbus.read_input.start    | [-]        | [-]                 |[**X**]              | [-]                   |
+| modbus.read_input.count    | [-]        | [-]                 |[**X**]              | [-]                   |
+| modbus.read_holding.start  | [-]        | [-]                 |[-]                  | [**X**]               |
+| modbus.read_holding.count  | [-]        | [-]                 |[-]                  | [**X**]               |
 
 | Fact Name/Ability Used By   | Write Coil | Write Register | Write Multiple Coils | Write Multiple Registers |
 |---------                    |---------   |---------	    |---------	           |---------                 |
 | modbus.server.ip            | [**X**]    | [**X**]        |[**X**]               | [**X**]                  |
 | modbus.server.port          | [**X**]    | [**X**]        |[**X**]               | [**X**]                  |
-| modbus.write.coil.start     | [**X**]    | [-]            |[**X**]               | [-]                      |
-| modbus.write.coil.value     | [**X**]    | [-]            |[**X**]               | [-]                      |
-| modbus.write.coil.count     | [-]        | [-]            |[**X**]               | [-]                      |
-| modbus.write.holding.start  | [-]        | [**X**]        |[-]                   | [**X**]                  |
-| modbus.write.holding.value  | [-]        | [**X**]        |[-]                   | [**X**]                  |
-| modbus.write.holding.count  | [-]        | [-]            |[-]                   | [**X**]                  |
+| modbus.write_coil.start     | [**X**]    | [-]            |[**X**]               | [-]                      |
+| modbus.write_coil.value     | [**X**]    | [-]            |[**X**]               | [-]                      |
+| modbus.write_coil.count     | [-]        | [-]            |[**X**]               | [-]                      |
+| modbus.write_register.start  | [-]        | [**X**]        |[-]                   | [**X**]                  |
+| modbus.write_register.value  | [-]        | [**X**]        |[-]                   | [**X**]                  |
+| modbus.write_register.count  | [-]        | [-]            |[-]                   | [**X**]                  |
 
 | Fact Name/Ability Used By | Fuzz Coils | Fuzz Registers|
 |---------                  |---------   |---------	     |
 | modbus.server.ip          | [**X**]    | [**X**]       |
 | modbus.server.port        | [**X**]    | [**X**]       |
-| modbus.fuzz.coil.start    | [**X**]    | [-]           |
-| modbus.fuzz.coil.end      | [**X**]    | [-]           |
-| modbus.fuzz.coil.count    | [**X**]    | [-]           |
-| modbus.fuzz.coil.wait     | [**X**]    | [-]           |
-| modbus.fuzz.holding.start | [-]        | [**X**]       |
-| modbus.fuzz.holding.end   | [-]        | [**X**]       |
-| modbus.fuzz.holding.count | [-]        | [**X**]       |
-| modbus.fuzz.holding.min   | [-]        | [**X**]       |
-| modbus.fuzz.holding.max   | [-]        | [**X**]       |
-| modbus.fuzz.holding.wait  | [-]        | [**X**]       |
+| modbus.fuzz_coil.start    | [**X**]    | [-]           |
+| modbus.fuzz_coil.end      | [**X**]    | [-]           |
+| modbus.fuzz_coil.count    | [**X**]    | [-]           |
+| modbus.fuzz_coil.wait     | [**X**]    | [-]           |
+| modbus.fuzz_register.start | [-]        | [**X**]       |
+| modbus.fuzz_register.end   | [-]        | [**X**]       |
+| modbus.fuzz_register.count | [-]        | [**X**]       |
+| modbus.fuzz_register.min   | [-]        | [**X**]       |
+| modbus.fuzz_register.max   | [-]        | [**X**]       |
+| modbus.fuzz_register.wait  | [-]        | [**X**]       |
 
 ####  Sample Facts - Modbus
     ...
@@ -131,13 +131,13 @@ Key:
       value: 192.168.0.1
     - trait: modbus.server.port
       value: 5020
-	- trait: modbus.fuzz.coil.start
+	- trait: modbus.fuzz_coil.start
 	  value: 10
-	- trait: modbus.fuzz.coil.end
+	- trait: modbus.fuzz_coil.end
 	  value: 15
-	- trait: modbus.fuzz.coil.count
+	- trait: modbus.fuzz_coil.count
 	  value: 100
-	- trait: modbus.fuzz.coil.wait
+	- trait: modbus.fuzz_coil.wait
 	  value: 1
     ...
 
