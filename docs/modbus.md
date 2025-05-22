@@ -12,7 +12,7 @@ The Modbus plugin provides adversary emulation abilities specific to the Modbus 
 
 
 ### Ability Overview Tables
-The following tables list each plugin ability by their corresponding tactic. A heatmap of plugin abilities is available to view [here](assets/heatmap.jpg).
+The following tables list each plugin ability by their corresponding tactic. A heatmap of plugin abilities is available to view [here](assets/heatmap.png).
 
 #### Collection Abilities
 | Name 	   | Tactic | Technique |  Technique ID   |
