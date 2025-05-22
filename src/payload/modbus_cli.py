@@ -449,13 +449,13 @@ def print_read_result(result, start, count, datatype):
     else:
         value_list = result.registers
 
-    for index in range(start, start + count):
+    for offset in range(count):
         try:
-            value = value_list[index]
+            value = value_list[offset]
         except IndexError:
             value = "out of range"
 
-        print(f"{datatype} {index} = {value}")
+        print(f"{datatype} {start + offset} = {value}")
 
 
 def run():
