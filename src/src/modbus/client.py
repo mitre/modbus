@@ -1,21 +1,23 @@
 import traceback
-from logging import Logger
 from dataclasses import dataclass
+from logging import Logger
 
-from pymodbus.pdu import ModbusResponse
+from pymodbus import ModbusException
+from pymodbus.client import ModbusTcpClient
+from pymodbus.pdu import ModbusPDU
 
-from pymodbus.client.sync import ModbusTcpClient
 from modbus.common import ActionClientInterface
 
 
 @dataclass
 class FuncCallResp:
-    """Holds results gotten from calling a pymodbus function
+    """Holds result of a pymodbus function call
 
     - success: True if no Exception was raised and no error ModbusResponse was returned.
     - val: Value returned from function. Is set to None in error states.
     - err: Traceback of Exception if one occurred, or the text "Modbus error response", or an issue description.
     """
+
     success: bool
     val: object
     err: str
@@ -27,15 +29,16 @@ def pymodbus_call(func, *args, **kwargs) -> FuncCallResp:
     Handles catching of Exceptions or error ModbusResponse's
     """
     try:
-        val = func(*args, **kwargs)
-    except Exception:
-        err = traceback.format_exc()
-        return FuncCallResp(False, None, err)
+        resp = func(*args, **kwargs)
+    except ModbusException as err:
+        return FuncCallResp(False, None, f"Exception in pymodbus: {err}")
 
-    if isinstance(val, ModbusResponse) and val.isError():
-        return FuncCallResp(False, None, "Modbus error response")
+    if resp.isError():
+        return FuncCallResp(
+            False, None, f"Modbus exception, code: {resp.exception_code}"
+        )
 
-    return FuncCallResp(True, val, "")
+    return FuncCallResp(True, resp, "")
 
 
 class ModbusClient(ActionClientInterface):
@@ -51,7 +54,7 @@ class ModbusClient(ActionClientInterface):
         self.log.debug(f"Built Modbus Client: {dir(ModbusClient)}")
         self.log.debug(f"Actions registered in map: {ModbusClient.action_map}")
 
-    def connect(self, ip: str, port: int = 502, transport: str = "TCP") -> FuncCallResp:
+    def connect(self, ip: str, port: int = 502, transport: str = "TCP") -> bool:
         """Connect to a PLC
 
         Args:
@@ -59,27 +62,22 @@ class ModbusClient(ActionClientInterface):
             port (int): Modbus port on the PLC, default: 502.
 
         Returns:
-            FuncCallResp data object as a dict
+            success bool
         """
         self.log.info(f"Connecting to {ip}:{port} over {transport}")
         if transport == "TCP":
-            self.context.client = ModbusTcpClient(ip, port)
+            self.context.client = ModbusTcpClient(host=ip, port=port)
         else:
             raise NotImplementedError(f"Transport {transport} not implemented")
         self.context.transport = transport
-        ret = pymodbus_call(self.client.connect)
 
-        return {"success": ret.success, "err": ret.err}
+        return self.client.connect()
 
-    def disconnect(self) -> FuncCallResp:
+    def disconnect(self):
         self.log.info("Disconnecting...")
-        ret = pymodbus_call(self.client.close)
-
-        return {"success": ret.success, "err": ret.err}
+        self.client.close()
 
     def send(self, payload: bytes) -> FuncCallResp:
         """UNTESTED"""
         self.log.info("[UNTESTED] Sending raw payload over connection")
-        ret = pymodbus_call(self.client.execute, payload)
-
-        return {"success": ret.success, "err": ret.err, "response": ret.val}
+        return pymodbus_call(self.client.execute, payload)

@@ -1,3 +1,2 @@
-pymodbus==2.5.3
-pyserial==3.5
-six==1.16.0
+pymodbus~=3.9.2
+pyserial~=3.5
