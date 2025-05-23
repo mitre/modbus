@@ -405,7 +405,7 @@ def do_action(client, args):
             print(f"Fuzzing failed: {err}")
             log.error(err)
         else:
-            print("%s successful write operations, %s errors.", result[0], result[1])
+            print(f"{result[0]} successful write operations, {result[1]} errors")
 
     elif args.action.lower() == "fuzz_r":
         print("[*] Fuzz random registers")
@@ -423,7 +423,7 @@ def do_action(client, args):
             print(f"Fuzzing failed: {err}")
             log.error(err)
         else:
-            print("%s successful write operations, %s errors.", result[0], result[1])
+            print(f"{result[0]} successful write operations, {result[1]} errors")
 
     else:
         print("Action not defined.")
