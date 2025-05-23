@@ -6,7 +6,7 @@
     Modbus Function 5 (0x05): Write Single Coil
 
     This function code is used to write a single output to either ON or OFF in a remote device. Addressing starts at 0 (e.g. coil 1 = address 0).
-  tactic: impact
+  tactic: impair-process-control
   technique_id: T0836
   technique_name: Modify Parameter
   executors:

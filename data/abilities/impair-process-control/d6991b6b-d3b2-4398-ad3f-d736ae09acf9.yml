@@ -6,7 +6,7 @@
     Modbus Function 6 (0x06): Write Single Register
 
     This function code is used to write a single holding register in a remote device. Addressing starts at 0 (e.g. holding register 1 = address 0).
-  tactic: impact
+  tactic: impair-process-control
   technique_id: T0836
   technique_name: Modify Parameter
   executors:
