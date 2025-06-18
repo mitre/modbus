@@ -55,7 +55,7 @@ build guidance.
    coils to achieve your desired outcome.
 
 For detailed instructions and ability descriptions, see the
-[fieldmanual documention](/docs/modbus.md#payloads).
+[fieldmanual documention](/docs/modbus.md#usage).
 
 ### Virtual Test Device: [Wildcat Dam](https://github.com/mitre/wildcatdam)
 
