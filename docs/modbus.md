@@ -68,13 +68,30 @@ The following libraries were used to build the Modbus payloads:
 This section describes how to initially deploy and execute the abilities present within the Modbus plugin.
 
 ### Deployment
-1. Identify the target system you would like to communicate with via the Modbus protocol.
-2. Identify a viable host for the Caldera agent that will be sending Modbus messages to the target system.
-3. Deploy the Caldera agent to the viable host.
-4. Run a combination of the Modbus plugin abilities to achieve the desired effect.  
+
+1. **Select Your Target System**  
+   Determine the system you want to communicate with via the Modbus protocol.
+   This could be an industrial control system, a programmable logic controller
+   (PLC), or any other Modbus-compatible device.
+
+2. **Choose a Host for the Caldera Agent**  
+   Identify a suitable machine to host the Caldera agent. This machine will act
+   as the intermediary, sending Modbus messages to your target system. Ensure the
+   host has network access to the target system and meets the deployment
+   requirements.
+
+3. **Deploy the Caldera Agent**  
+   Deploy the Caldera agent to the chosen host. Instructions and scripts to 
+   acheive this are found on the Caldera server GUI on the "Agents" page. 
+
+4. **Execute Modbus Plugin Abilities**  
+   Utilize the Modbus plugin's abilities to perform specific actions on the
+   target system. Combine abilities such as reading registers and writing 
+   coils to achieve your desired outcome.
 
 ```{tip}
-Reference the Caldera training plugin for a step-by-step tutorial on how to deploy an agent and run abilities via an operation.
+Reference the Caldera training plugin for a step-by-step tutorial on how to
+deploy an agent and run abilities via an operation.
 ```
 
 ### Modbus Sources and Facts
