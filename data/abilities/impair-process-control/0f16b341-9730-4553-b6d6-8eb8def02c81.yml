@@ -1,0 +1,24 @@
+---
+
+- id: 0f16b341-9730-4553-b6d6-8eb8def02c81
+  name: Modbus - Write Multiple Registers
+  description: |
+    Modbus Function 16 (0x10): Write Multiple Registers
+
+    This function code is used to write a block of contiguous holding registers (1 to 123 registers) in a remote device. Addressing starts at 0 (e.g. holding registers 1-5 = addresses 0-4).
+  tactic: impair-process-control
+  technique_id: T0806
+  technique_name: Brute Force I/O
+  executors:
+  - platform: linux
+    name: sh
+    command: >
+      ./modbus_cli #{modbus.server.ip} --port #{modbus.server.port} write_multi_r #{modbus.write_register.start} #{modbus.write_register.values}
+    payloads:
+    - modbus_cli
+  - platform: windows
+    name: psh
+    command: >
+      .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} write_multi_r #{modbus.write_register.start} #{modbus.write_register.values}
+    payloads:
+    - modbus_cli.exe

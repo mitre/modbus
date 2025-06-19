@@ -5,40 +5,32 @@ Modbus Protocol Threat Emulation Tooling
 ## Overview
 The Modbus plugin provides adversary emulation abilities specific to the Modbus protocol. The specification for the Modbus protocol is free and available to download from the Modbus organization at [modbus.org](https:www.modbus.org/specs.php) The following table outlines MITRE ATT&CK for ICS Tactic coverage provided by the Modbus plugin.
 
-|Collection                |Impact
-|:-------------------------|:-
-|Point & Tag Identification|Manipulation of Control
+|[Collection](#collection-abilities)| [Impair Process Control](#impair-process-control-abilities) |
+|:-------------------------|:----------------------|
+|Point & Tag Identification| Brute Force I/O |
+|                          | Modify Parameter |
 
-### Compatability
-The plugin payload(s) currently support deployment to Caldera agents for the following computer architectures:
-|      |Windows |Linux | Macintosh|
-|-----:|:------:|:----:|:--------:|
-|32-bit|        |      |          |
-|64-bit|X       |X     |          |
-
-* The linux payload was compiled with Ubuntu 22.04.2 LTS, Python version 3.8-dev, Pyinstaller 5.10.1.
-* The windows payload was compiled with Windows 10 v21H2, Python version 3.8.10, Pyinstaller 5.10.1.
 
 ### Ability Overview Tables
-The following tables list each plugin ability by their corresponding tactic. A heatmap of plugin abilities is available to view [here](assets/heatmap.jpg).
+The following tables list each plugin ability by their corresponding tactic. A heatmap of plugin abilities is available to view [here](assets/heatmap.png).
 
-#### **Collection Abilities**
+#### Collection Abilities
+| Name 	   | Tactic | Technique |  Technique ID   |
+|----------|--------|-----------|-----------------|
+|[Modbus - Read Coils](#modbus---read-coils)  |Collection  |Point & Tag Identification  |T0861  |
+|[Modbus - Read Discrete Inputs](#modbus---read-discrete-inputs)  |Collection  |Point & Tag Identification  |T0861  |
+|[Modbus - Read Holding Registers](#modbus---read-holding-registers)  |Collection  |Point & Tag Identification  |T0861  |
+|[Modbus - Read Input Registers](#modbus---read-input-registers)  |Collection  |Point & Tag Identification  |T0861  |
+
+#### Impair Process Control Abilities
 | Name 	                | Tactic 	        | Technique |  Technique ID     |
 |----------             |---------          |-----------|----------         |
-|[Modbus Read Coils](#read-coils)  |Collection  |Point & Tag Identification  |T0861  |
-|[Modbus Read Discrete Inputs](#read-discrete-inputs)  |Collection  |Point & Tag Identification  |T0861  |
-|[Modbus Read Holding Registers](#read-holding-registers)  |Collection  |Point & Tag Identification  |T0861  |
-|[Modbus Read Input Registers](#read-input-registers)  |Collection  |Point & Tag Identification  |T0861  |
-
-#### **Impact Abilities**
-| Name 	                | Tactic 	        | Technique |  Technique ID     |
-|----------             |---------          |-----------|----------         |
-|[Modbus Write Single Coil](#write-single-coil)  |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Write Single Register](#write-single-register)  |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Write Multiple Coils](#write-multiple-coils) |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Write Multiple Registers](#write-multiple-registers)  |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Fuzz Coils](#fuzz-coils)  |Impact  |Manipulation of Control  |T0831  |
-|[Modbus Fuzz Registers](#fuzz-registers)  |Impact  |Manipulation of Control  |T0831  |
+|[Modbus - Write Single Coil](#modbus---write-single-coil)  |Impair Process Control  | Modify Parameter  |T0836  |
+|[Modbus - Write Single Register](#modbus---write-single-register)  |Impair Process Control  | Modify Parameter  |T0836  |
+|[Modbus - Write Multiple Coils](#modbus---write-multiple-coils) |Impair Process Control  | Brute Force I/O  |T0806  |
+|[Modbus - Write Multiple Registers](#modbus---write-multiple-registers)  |Impair Process Control  | Brute Force I/O  |T0806  |
+|[Modbus - Fuzz Coils](#modbus---fuzz-coils)  |Impair Process Control  | Brute Force I/O  |T0806  |
+|[Modbus - Fuzz Registers](#modbus---fuzz-registers)  |Impair Process Control  | Brute Force I/O  |T0806  |
 
 ## Architecture
 
@@ -50,321 +42,474 @@ The Modbus Plugin allows a user to execute several abilities once added to the C
 
 ### Payloads
 
-The Modbus Plugin includes 2 payloads that implement the abilities, each is described below.
+The Modbus Plugin includes one payload, compiled for two different host architectures: 
+- `modbus_cli.exe` (Windows)
+- `modbus_cli` (Linux)
 
-Payload:
-* `modbus_cli | modbus_cli.exe`: &emsp; CLI enabling all the Modbus threat emulation actions.
+#### Compatibility
+
+The payloads were compiled in the following environments:
+
+|            | Linux | Windows |
+|------------|-------|---------|
+| OS Version | Linux-6.8.0-60-generic-x86_64-with-glibc2.31 | Windows-10-10.0.19043-SP0 |
+| Python Version | 3.13.3 | 3.13.3 |
+| PyInstaller | 6.13.0 | 6.13.0 |
+
 
 ### Libraries
 The following libraries were used to build the Modbus payloads:
 | Library | Version	 | License |
 |---------|--------- |---------|
-|pymodbus |[2.5.3](https://github.com/pymodbus-dev/pymodbus/tree/v2.5.3) |[BSD](https://github.com/pymodbus-dev/pymodbus/blob/v2.5.3/LICENSE)      |
-|pyserial |[3.5](https://github.com/pyserial/pyserial/tree/v3.5)    |[BSD](https://github.com/pyserial/pyserial/blob/v3.5/LICENSE.txt)      |
-|six      |[1.16.0](https://github.com/benjaminp/six/tree/1.16.0)    |[MIT](https://github.com/benjaminp/six/blob/1.16.0/LICENSE)|
+|pymodbus |[3.9.2](https://github.com/pymodbus-dev/pymodbus/tree/v3.9.2) |[BSD](https://github.com/pymodbus-dev/pymodbus/blob/v3.9.2/LICENSE)      |
 
 
 ## Usage
 This section describes how to initially deploy and execute the abilities present within the Modbus plugin.
 
 ### Deployment
-1. Identify the target system you would like to communicate with via the Modbus protocol.
-2. Identify a viable host for the Caldera agent that will be sending Modbus messages to the target system.
-3. Deploy the Caldera agent to the viable host.
-4. Run any of the Modbus plugin abilities listed below to achieve desired impact.
 
-*Reference the Caldera training plugin for a step-by-step tutorial on how to deploy an agent and run abilities via a campaign.*
+1. **Select Your Target System**  
+   Determine the system you want to communicate with via the Modbus protocol.
+   This could be an industrial control system, a programmable logic controller
+   (PLC), or any other Modbus-compatible device.
 
-#### Modbus Sources and Facts
+2. **Choose a Host for the Caldera Agent**  
+   Identify a suitable machine to host the Caldera agent. This machine will act
+   as the intermediary, sending Modbus messages to your target system. Ensure the
+   host has network access to the target system and meets the deployment
+   requirements.
 
-The following Facts are used by Modbus plugin abilities:
+3. **Deploy the Caldera Agent**  
+   Deploy the Caldera agent to the chosen host. Instructions and scripts to 
+   acheive this are found on the Caldera server GUI on the "Agents" page. 
 
-Key:
-- [-] = Ability does not use this fact
-- [**X**] = Ability uses this fact
+4. **Execute Modbus Plugin Abilities**  
+   Utilize the Modbus plugin's abilities to perform specific actions on the
+   target system. Combine abilities such as reading registers and writing 
+   coils to achieve your desired outcome.
 
+```{tip}
+Reference the Caldera training plugin for a step-by-step tutorial on how to
+deploy an agent and run abilities via an operation.
+```
 
-| Fact Name/Ability Used By | Read Coil	 | Read Discrete Input | Read Input Register | Read Holding Register |
-|---------                  |---------   |---------	           |---------	         |---------              |
-| modbus.all.deviceip       | [**X**]    | [**X**]             |[**X**]              | [**X**]               |
-| modbus.all.deviceport     | [**X**]    | [**X**]             |[**X**]              | [**X**]               |
-| modbus.read_c.start       | [**X**]    | [-]                 |[-]                  | [-]                   |
-| modbus.read_c.count       | [**X**]    | [-]                 |[-]                  | [-]                   |
-| modbus.read_di.start      | [-]        | [**X**]             |[-]                  | [-]                   |
-| modbus.read_di.count      | [-]        | [**X**]             |[-]                  | [-]                   |
-| modbus.read_ir.start      | [-]        | [-]                 |[**X**]              | [-]                   |
-| modbus.read_ir.count      | [-]        | [-]                 |[**X**]              | [-]                   |
-| modbus.read_hr.start      | [-]        | [-]                 |[-]                  | [**X**]               |
-| modbus.read_hr.count      | [-]        | [-]                 |[-]                  | [**X**]               |
+### Modbus Sources and Facts
 
-| Fact Name/Ability Used By | Write Coil | Write Register | Write Multiple Coils | Write Multiple Registers |
-|---------                  |---------   |---------	      |---------	         |---------                 |
-| modbus.all.deviceip       | [**X**]    | [**X**]        |[**X**]               | [**X**]                  |
-| modbus.all.deviceport     | [**X**]    | [**X**]        |[**X**]               | [**X**]                  |
-| modbus.write_c.start      | [**X**]    | [-]            |[-]                   | [-]                      |
-| modbus.write_c.value      | [**X**]    | [-]            |[-]                   | [-]                      |
-| modbus.read_di.start      | [-]        | [**X**]        |[-]                   | [-]                      |
-| modbus.read_di.count      | [-]        | [**X**]        |[-]                   | [-]                      |
-| modbus.read_ir.start      | [-]        | [-]            |[**X**]               | [-]                      |
-| modbus.read_ir.count      | [-]        | [-]            |[**X**]               | [-]                      |
-| modbus.read_hr.start      | [-]        | [-]            |[-]                   | [**X**]                  |
-| modbus.read_hr.count      | [-]        | [-]            |[-]                   | [**X**]                  |
-
-| Fact Name/Ability Used By | Fuzz Coils | Fuzz Registers|
-|---------                  |---------   |---------	     |
-| modbus.all.deviceip       | [**X**]    | [**X**]       |
-| modbus.all.deviceport     | [**X**]    | [**X**]       |
-| modbus.fuzzcoil.start     | [**X**]    | [-]           |
-| modbus.fuzzcoil.end       | [**X**]    | [-]           |
-| modbus.fuzzcoil.count     | [**X**]    | [-]           |
-| modbus.fuzzcoil.wait      | [**X**]    | [-]           |
-| modbus.fuzzreg.start      | [-]        | [**X**]       |
-| modbus.fuzzreg.end        | [-]        | [**X**]       |
-| modbus.fuzzreg.count      | [-]        | [**X**]       |
-| modbus.fuzzreg.min        | [-]        | [**X**]       |
-| modbus.fuzzreg.max        | [-]        | [**X**]       |
-| modbus.fuzzreg.wait       | [-]        | [**X**]       |
-
-####  Sample Facts - Modbus
-    ...
-    name: Modbus Sample Facts
-    facts:
-    - trait: modbus.all.deviceip
-      value: 192.168.0.1
-    - trait: modbus.all.deviceport
-      value: 5020
-	- trait: modbus.fuzzcoil.start
-	  value: 10
-	- trait: modbus.fuzzcoil.end
-	  value: 15
-	- trait: modbus.fuzzcoil.count
-	  value: 100
-	- trait: modbus.fuzzcoil.wait
-	  value: 1
-    ...
-
-Read more about [facts](https://caldera.readthedocs.io/en/latest/Basic-Usage.html?highlight=fact#facts) in the Caldera documentation.
+Caldera fact sources allow you to save information about your target environment
+to simplify executing abilities. This plugin comes with a sample fact source
+named "Modbus Sample Facts" that will have loaded with the plugin. Navigate to
+the Sources tab of the Caldera interface to view and modify these facts.
 
 ### Abilities
-#### Read Coils
-	Modbus Function 1 (0x01): Read Coils
+#### Modbus - Read Coils
+Modbus Function 1 (0x01): Read Coils
 
-    This function code is used to read from 1 to 2000 contiguous states of coils in a
-	remote device.
+This function code is used to read from 1 to 2000 contiguous states of coils in a
+remote device.
 
-	Usage:
-      ./modbus_cli <ip> -p <port> read_c <start> <count> -U <unit>
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
 
-    Arguments:
-      ip              target device IP address
-      start           starting address to read from
-      count           number of items to read
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} read_c #{modbus.read_coil.start} #{modbus.read_coil.count}
+```  
 
-	Options:
-      -p, --port      target device port (default: 502)
-      -U, --unit      reference a specific unit over a serial connection (0-255)
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
 
-	Example:
-	  ./modbus_cli 10.0.0.100 read_c 3 1
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} read_c #{modbus.read_coil.start} #{modbus.read_coil.count}
+```  
 
-#### Read Discrete Inputs
-	Modbus Function 2 (0x02): Read Discrete Inputs
+</details>
+<br>
 
-    This function code is used to read from 1 to 2000 contiguous discrete inputs
-	in a remote device.
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.read_coil.start` | The starting address to read from | int | 0-65535 |
+| `modbus.read_coil.count` | The number of items to read | int  | 1-2000 |
 
-	Usage:
-	./modbus_cli <ip> -p <port> read_di <start> <count> -U <unit>
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
 
-	Arguments:
-      ip              target device IP address
-      start           starting address to read from
-      count           number of items to read
+#### Modbus - Read Discrete Inputs
+Modbus Function 2 (0x02): Read Discrete Inputs
 
-	Options:
-      -p, --port    target device port (default: 502)
-	  -U, --unit    reference a specific unit over a serial connection (0-255)
+This function code is used to read from 1 to 2000 contiguous discrete inputs
+in a remote device.
 
-	Example:
-	  ./modbus_cli 127.0.0.1 -p 5020 read_di 1 8
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
 
-#### Read Holding Registers
-	Modbus Function 3 (0x03): Read Holding Registers
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} read_di #{modbus.read_discrete.start} #{modbus.read_discrete.count}
+```  
 
-    This function code is used to read the contents of a contiguous block of holding
-	registers in a remote device.
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
 
-	Usage:
-      ./modbus_cli <ip> -p <port> read_hr <start> <count> -U <unit>
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} read_di #{modbus.read_discrete.start} #{modbus.read_discrete.count}
+```  
 
-    Arguments:
-      ip              target device IP address
-      start           starting address to read from
-      count           number of items to read
+</details>
+<br>
 
-	Options:
-      -p, --port      target device port (default: 502)
-      -U, --unit      reference a specific unit over a serial connection (0-255)
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.read_discrete.start` | The starting address to read from | int | 0-65535 |
+| `modbus.read_discrete.count` | The number of items to read | int  | 1-2000 |
 
-	Example:
-	  ./modbus_cli 192.168.0.20 read_hr 3 1
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
 
-#### Read Input Registers
-	Modbus Function 4 (0x04): Read Input Registers
+#### Modbus - Read Holding Registers
+Modbus Function 3 (0x03): Read Holding Registers
 
-    This function code is used to read from 1 to 125 contiguous input registers in a
-	remote device.
+This function code is used to read the contents of a contiguous block of holding
+registers in a remote device.
 
-	Usage:
-      ./modbus_cli <ip> -p <port> read_ir <start> <count> -U <unit>
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
 
-    Arguments:
-      ip              target device IP address
-      start           starting address to read from
-      count           number of items to read
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} read_hr #{modbus.read_holding.start} #{modbus.read_holding.count}
+```  
 
-	Options:
-      -p, --port      target device port (default: 502)
-      -U, --unit      reference a specific unit over a serial connection (0-255)
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
 
-	Example:
-	  ./modbus_cli 127.0.0.1 -p 111 read_ir -U 1 1 10
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} read_hr #{modbus.read_holding.start} #{modbus.read_holding.count}
+```  
 
-#### Write Single Coil
-	Modbus Function 5 (0x05): Write Single Coil
+</details>
+<br>
 
-    This function code is used to write a single output to either ON or OFF in a
-	remote device.
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.read_holding.start` | The starting address to read from | int | 0-65535 |
+| `modbus.read_holding.count` | The number of items to read | int  | 1-125 |
 
-	Usage:
-	./modbus_cli <ip> -p <port> write_c <start> <value> -U <unit>
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
 
-	Arguments:
-	  ip              target device IP address
-	  start           starting address to write to
-	  value           value to write (0,1)
 
-	Options:
-      -p, --port      target device port (default: 502)
-	  -U, --unit      reference a specific unit over a serial connection (0-255)
+#### Modbus - Read Input Registers
+Modbus Function 4 (0x04): Read Input Registers
 
-	Example:
-	  ./modbus_cli 192.168.1.1 -p 5020 write_c 0 1
+This function code is used to read from 1 to 125 contiguous input registers in a
+remote device.
 
-#### Write Single Register
-	Modbus Function 6 (0x06): Write Single Register
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
 
-    This function code is used to write a single holding register in a remote device.
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} read_ir #{modbus.read_input.start} #{modbus.read_input.count}
+```  
 
-	Usage:
-	./modbus_cli <ip> -p <port> write_r <start> <value> -U <unit>
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
 
-	Arguments:
-      ip              target device IP address
-      start           starting address to read from
-      value           value to write (0-65535)
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} read_ir #{modbus.read_input.start} #{modbus.read_input.count}
+```  
 
-	Options:
-      -p, --port      target device port (default: 502)
-      -U, --unit      reference a specific unit over a serial connection (0-255)
+</details>
+<br>
 
-	Example:
-	  ./modbus_cli 192.168.1.1 -p 5020 write_r 10 5000
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.read_input.start` | The starting address to read from | int | 0-65535 |
+| `modbus.read_input.count` | The number of items to read | int  | 1-125 |
 
-#### Write Multiple Coils
-	Modbus Function 15 (0x0F): Write Multiple Coils
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
 
-    This function code is used to force each coil in a sequence of coils to either
-	ON or OFF in a remote device.
+#### Modbus - Write Single Coil
+Modbus Function 5 (0x05): Write Single Coil
 
-	Usage:
-	./modbus_cli <ip> -p <port> write_multi_c <start> <value> <count> -U <unit>
+This function code is used to write a single output to either ON or OFF in a
+remote device.
 
-	Arguments:
-	  ip              target device IP address
-	  start           starting address to write to
-	  value           value to write (0,1)
-	  count           number of coils to be written to
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
 
-	Options:
-      -p, --port      target device port (default: 502)
-	  -U, --unit      reference a specific unit over a serial connection (0-255)
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} write_c #{modbus.write_coil.start} #{modbus.write_coil.value}
+```  
 
-	Example:
-	  ./modbus_cli 192.168.1.1 -p 5020 write_multi_c 0 1 5
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
 
-#### Write Multiple Registers
-	Modbus Function 16 (0x10): Write Multiple Registers
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} write_c #{modbus.write_coil.start} #{modbus.write_coil.value}
+```  
 
-    This function code is used to write a block of contiguous registers
-	(1 to 123 registers) in a remote device.
+</details>
+<br>
 
-	Usage:
-	./modbus_cli <ip> -p <port> write_multi_r <start> <value> <count> -U <unit>
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.write_coil.start` | The starting address to write to | int | 0-65535 |
+| `modbus.write_coil.value` | The value to be written | str  | ON,OFF |
 
-	Arguments:
-	  ip              target device IP address
-	  start           starting address to write to
-	  value           value to write (0-65535)
-	  count           number of registers to write to
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
 
-	Options:
-      -p, --port      target device port (default: 502)
-	  -U, --unit      reference a specific unit over a serial connection (0-255)
+#### Modbus - Write Single Register
+Modbus Function 6 (0x06): Write Single Register
 
-	Example:
-	  ./modbus_cli 192.168.1.1 -p 5020 write_multi_r 10 33 5
+This function code is used to write a single holding register in a remote device.
 
-#### Fuzz Coils
-	Procedure
-    Modbus Function 5 (0x05) Write Single Coil
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
 
-    Writes random values to random coils over specified ranges.
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} write_r #{modbus.write_register.start} #{modbus.write_register.value}
+```  
 
-	Usage:
-	./modbus_cli <ip> -p <port> fuzz_c <start> <end> <count> --wait <wait> -U <unit>
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
 
-	Arguments:
-	  ip              target device IP address
-      start           start range of coils (inclusive)
-      end             end range of coils (inclusive)
-      count           number of coils in the provided range to perform the write on
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} write_r #{modbus.write_register.start} #{modbus.write_register.value}
+```  
 
-	Options:
-      -p, --port      target device port (default: 502)
-	  -U, --unit      reference a specific unit over a serial connection (0-255)
-	  --wait          seconds to wait in between write operations
+</details>
+<br>
 
-	Example:
-	  ./modbus_cli 192.168.1.1 -p 5020 fuzz_c 1 10 5 --wait 1
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.write_register.start` | The starting address to write to | int | 0-65535 |
+| `modbus.write_register.value` | The value to be written | int  | 0-65535 |
 
-#### Fuzz Registers
-	Procedure
-    Modbus Function 6 (0x06): Write Single Register
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
 
-    Writes random values to random registers over specified ranges.
+#### Modbus - Write Multiple Coils
+Modbus Function 15 (0x0F): Write Multiple Coils
 
-	Usage:
-	./modbus_cli <ip> -p <port> fuzz_r <start> <end> <count> --min <min> --max <max> --wait <wait> -U <unit>
+This function code is used to force each coil in a sequence of coils to either
+ON or OFF in a remote device.
 
-	Arguments:
-	  ip              target device IP address
-      start           start range of coils (inclusive)
-      end             end range of coils (inclusive)
-      count           number of registers in the provided range to perform the write on
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
 
-	Options:
-      -p, --port      target device port (default: 502)
-	  -U, --unit      reference a specific unit over a serial connection (0-255)
-	  --min           lower limit for random register value (inclusive)
-	  --max           upper limit for random register value (inclusive)
-	  --wait          seconds to wait in between write operations
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} write_multi_c #{modbus.write_coil.start} #{modbus.write_coil.values}
+```  
 
-	Example:
-	  ./modbus_cli 192.168.1.1 -p 5020 fuzz_r 1 10 5 --min 0 --max 100 --wait 1
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} write_multi_c #{modbus.write_coil.start} #{modbus.write_coil.values}
+```  
+
+</details>
+<br>
+
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.write_coil.start` | The starting address to write to | int | 0-65535 |
+| `modbus.write_coil.values` | The values to be written | comma separated list of str  | ON,OFF |
+
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
+
+#### Modbus - Write Multiple Registers
+Modbus Function 16 (0x10): Write Multiple Registers
+
+This function code is used to write a block of contiguous registers
+(1 to 123 registers) in a remote device.
+
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
+
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} write_multi_r #{modbus.write_register.start} #{modbus.write_register.values}
+```  
+
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} write_multi_r #{modbus.write_register.start} #{modbus.write_register.values}
+```  
+
+</details>
+<br>
+
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.write_register.start` | The starting address to write to | int | 0-65535 |
+| `modbus.write_register.values` | The values to be written | comma separated list of int  | 0-65535 |
+
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
+
+#### Modbus - Fuzz Coils
+Procedure  
+Modbus Function 5 (0x05) Write Single Coil
+
+Writes random values to random coils over specified ranges.
+
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
+
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} fuzz_c #{modbus.fuzz_coil.start} #{modbus.fuzz_coil.end} #{modbus.fuzz_coil.count} --wait #{modbus.fuzz_coil.wait}
+```  
+
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} fuzz_c #{modbus.fuzz_coil.start} #{modbus.fuzz_coil.end} #{modbus.fuzz_coil.count} --wait #{modbus.fuzz_coil.wait}
+```  
+
+</details>
+<br>
+
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.fuzz_coil.start` | The start address of the fuzzing range | int | 0-65535 |
+| `modbus.fuzz_coil.end` | The end address of the fuzzing range | int | 0-65535 |
+| `modbus.fuzz_coil.count` | The number of write operations to perform | int | 0-65535 |
+| `modbus.fuzz_coil.wait` | Seconds to wait between write operations | float |  |
+
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
+
+#### Modbus - Fuzz Registers
+Procedure  
+Modbus Function 6 (0x06): Write Single Register
+
+Writes random values to random registers over specified ranges.
+
+__Ability Command:__
+<details open>
+<summary>Windows (psh)</summary>
+<br>
+
+```caldera
+.\modbus_cli.exe #{modbus.server.ip} -p #{modbus.server.port} fuzz_r #{modbus.fuzz_register.start} #{modbus.fuzz_register.end} #{modbus.fuzz_register.count} --min #{modbus.fuzz_register.min} --max #{modbus.fuzz_register.max} --wait #{modbus.fuzz_register.wait}
+```  
+
+</details>
+<details>
+<summary>Linux (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} fuzz_r #{modbus.fuzz_register.start} #{modbus.fuzz_register.end} #{modbus.fuzz_register.count} --min #{modbus.fuzz_register.min} --max #{modbus.fuzz_register.max} --wait #{modbus.fuzz_register.wait}
+```  
+
+</details>
+<br>
+
+__Facts:__  
+| Name | Description | Type | Choices |
+|:-----|:------------|:----:|:-------:|
+| `modbus.server.ip` | The target device IP address | string |  |
+| `modbus.server.port` | The target device Modbus port | int |  |
+| `modbus.fuzz_register.start` | The start address of the fuzzing range | int | 0-65535 |
+| `modbus.fuzz_register.end` | The end address of the fuzzing range | int | 0-65535 |
+| `modbus.fuzz_register.count` | The number of write operations to perform | int | 0-65535 |
+| `modbus.fuzz_register.min` | Minimum register write value | int | 0-65535 |
+| `modbus.fuzz_register.max` | Maximum register write value | int | 0-65535 |
+| `modbus.fuzz_register.wait` | Seconds to wait between write operations | float |  |
+
+__Optional Flags:__
+| Flag | Description | Type | Default |
+|:-----|:------------|:----:|:-------:|
+| `-d`, `--device` | Device ID to be targeted [0-255] | int | 1 |
 
 ## Source Code
-The source code for the Modbus plugin can be found inside this plugin's [src directory](/src/).
+The source code for the Modbus plugin can be found inside this plugin's `src/` directory.
 
 ## Copyright Notice
 Modbus® is a registered trademark of SCHNEIDER ELECTRIC USA, INC. CORPORATION DELAWARE 1415 SOUTH ROSELLE ROAD PALATINE ILLINOIS 60067

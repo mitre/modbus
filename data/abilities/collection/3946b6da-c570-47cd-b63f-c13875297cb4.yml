@@ -1,26 +1,24 @@
 ---
 
 - id: 3946b6da-c570-47cd-b63f-c13875297cb4
-  name: Modbus Read Input Registers
+  name: Modbus - Read Input Registers
   description: |
     Modbus Function 4 (0x04): Read Input Registers
 
     This function code is used to read from 1 to 125 contiguous input registers in a remote device. Addressing starts at 0 (e.g. input registers 1-5 = addresses 0-4).
   tactic: collection
-  technique:
-    attack_id: T0861
-    name: Point & Tag Identification
-  repeatable: True
-  platforms:
-    linux:
-      sh:
-        command:
-          './modbus_cli #{modbus.all.deviceip} --port #{modbus.all.deviceport} read_ir #{modbus.read_ir.start} #{modbus.read_ir.count}'
-        payloads:
-        - modbus_cli
-    windows:
-      psh:
-        command:
-          '.\modbus_cli.exe #{modbus.all.deviceip} --port #{modbus.all.deviceport} read_ir #{modbus.read_ir.start} #{modbus.read_ir.count}'
-        payloads:
-        - modbus_cli.exe
+  technique_id: T0861
+  technique_name: Point & Tag Identification
+  executors:
+  - platform: linux
+    name: sh
+    command: >
+      ./modbus_cli #{modbus.server.ip} --port #{modbus.server.port} read_ir #{modbus.read_input.start} #{modbus.read_input.count}
+    payloads:
+    - modbus_cli
+  - platform: windows
+    name: psh
+    command: >
+      .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} read_ir #{modbus.read_input.start} #{modbus.read_input.count}
+    payloads:
+    - modbus_cli.exe

