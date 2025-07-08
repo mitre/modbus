@@ -1,7 +1,7 @@
 ---
 
 - id: 001e21ea-61b5-4b78-b79e-9d5687d819bd
-  name: Modbus Read Discrete Inputs
+  name: Modbus - Read Discrete Inputs
   description: |
     Modbus Function 2 (0x02): Read Discrete Inputs
 
