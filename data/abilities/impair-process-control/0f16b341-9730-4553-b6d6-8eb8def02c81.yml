@@ -22,3 +22,9 @@
       .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} write_multi_r #{modbus.write_register.start} #{modbus.write_register.values}
     payloads:
     - modbus_cli.exe
+  - platform: darwin
+    name: sh
+    command: >
+      ./modbus_cli_darwin #{modbus.server.ip} --port #{modbus.server.port} write_multi_r #{modbus.write_register.start} #{modbus.write_register.values}
+    payloads:
+    - modbus_cli_darwin

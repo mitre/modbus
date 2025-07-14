@@ -22,3 +22,9 @@
       .\modbus_cli.exe #{modbus.server.ip} --port #{modbus.server.port} read_c #{modbus.read_coil.start} #{modbus.read_coil.count}
     payloads:
     - modbus_cli.exe
+  - platform: darwin
+    name: sh
+    command: >
+      ./modbus_cli_darwin #{modbus.server.ip} --port #{modbus.server.port} read_c #{modbus.read_coil.start} #{modbus.read_coil.count}
+    payloads:
+    - modbus_cli_darwin

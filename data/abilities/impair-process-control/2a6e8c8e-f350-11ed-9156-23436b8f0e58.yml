@@ -27,3 +27,11 @@
       --min #{modbus.fuzz_register.min} --max #{modbus.fuzz_register.max} --wait #{modbus.fuzz_register.wait}
     payloads:
     - modbus_cli.exe
+  - platform: darwin
+    name: sh
+    command: >
+      ./modbus_cli_darwin #{modbus.server.ip} --port #{modbus.server.port} fuzz_r 
+      #{modbus.fuzz_register.start} #{modbus.fuzz_register.end} #{modbus.fuzz_register.count} 
+      --min #{modbus.fuzz_register.min} --max #{modbus.fuzz_register.max} --wait #{modbus.fuzz_register.wait}
+    payloads:
+    - modbus_cli_darwin

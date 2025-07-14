@@ -27,3 +27,11 @@
       --wait #{modbus.fuzz_coil.wait}
     payloads:
     - modbus_cli.exe
+  - platform: darwin
+    name: sh
+    command: >
+      ./modbus_cli_darwin #{modbus.server.ip} --port #{modbus.server.port} fuzz_c 
+      #{modbus.fuzz_coil.start} #{modbus.fuzz_coil.end} #{modbus.fuzz_coil.count} 
+      --wait #{modbus.fuzz_coil.wait}
+    payloads:
+    - modbus_cli_darwin
