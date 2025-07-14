@@ -6,6 +6,9 @@ standard_payloads:
   modbus_cli:
     description: Modbus Client program (Linux)
     id: 090b9e5d-257e-4af5-a3ac-af1f6f5b1c10
+  modbus_cli_darwin:
+    description: Modbus Client program (Darwin)
+    id: fe688f8a-1d5d-4e31-b29a-aa481bb74ff7
   modbus_cli.exe:
     description: Modbus Client program (Windows)
     id: 0e25b0bf-85d4-4e20-b470-e70ece04f99a
