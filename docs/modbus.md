@@ -42,19 +42,20 @@ The Modbus Plugin allows a user to execute several abilities once added to the C
 
 ### Payloads
 
-The Modbus Plugin includes one payload, compiled for two different host architectures: 
+The Modbus Plugin includes one payload, compiled for three different host architectures: 
 - `modbus_cli.exe` (Windows)
 - `modbus_cli` (Linux)
+- `modbus_cli_darwin` (Darwin / macOS ARM)
 
 #### Compatibility
 
 The payloads were compiled in the following environments:
 
-|            | Linux | Windows |
-|------------|-------|---------|
-| OS Version | Linux-6.8.0-60-generic-x86_64-with-glibc2.31 | Windows-10-10.0.19043-SP0 |
-| Python Version | 3.13.3 | 3.13.3 |
-| PyInstaller | 6.13.0 | 6.13.0 |
+|            | Linux | Windows | Darwin |
+|------------|-------|---------|--------|
+| OS Version | Linux-6.8.0-60-generic-x86_64-with-glibc2.31 | Windows-10-10.0.19043-SP0 | macOS Sequoia v15.6 |
+| Python Version | 3.13.3 | 3.13.3 | 3.13.3 |
+| PyInstaller | 6.13.0 | 6.13.0 | 6.13.0 |
 
 
 ### Libraries
@@ -127,6 +128,15 @@ __Ability Command:__
 ```  
 
 </details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} read_c #{modbus.read_coil.start} #{modbus.read_coil.count}
+```  
+
+</details>
 <br>
 
 __Facts:__  
@@ -164,6 +174,15 @@ __Ability Command:__
 
 ```caldera
 ./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} read_di #{modbus.read_discrete.start} #{modbus.read_discrete.count}
+```  
+
+</details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} read_di #{modbus.read_discrete.start} #{modbus.read_discrete.count}
 ```  
 
 </details>
@@ -207,6 +226,15 @@ __Ability Command:__
 ```  
 
 </details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} read_hr #{modbus.read_holding.start} #{modbus.read_holding.count}
+```  
+
+</details>
 <br>
 
 __Facts:__  
@@ -240,11 +268,11 @@ __Ability Command:__
 
 </details>
 <details>
-<summary>Linux (sh)</summary>
+<summary>Darwin (sh)</summary>
 <br>
 
 ```caldera
-./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} read_ir #{modbus.read_input.start} #{modbus.read_input.count}
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} read_ir #{modbus.read_input.start} #{modbus.read_input.count}
 ```  
 
 </details>
@@ -288,6 +316,15 @@ __Ability Command:__
 ```  
 
 </details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} write_c #{modbus.write_coil.start} #{modbus.write_coil.value}
+```  
+
+</details>
 <br>
 
 __Facts:__  
@@ -324,6 +361,15 @@ __Ability Command:__
 
 ```caldera
 ./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} write_r #{modbus.write_register.start} #{modbus.write_register.value}
+```  
+
+</details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} write_r #{modbus.write_register.start} #{modbus.write_register.value}
 ```  
 
 </details>
@@ -367,6 +413,15 @@ __Ability Command:__
 ```  
 
 </details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} write_multi_c #{modbus.write_coil.start} #{modbus.write_coil.values}
+```  
+
+</details>
 <br>
 
 __Facts:__  
@@ -404,6 +459,15 @@ __Ability Command:__
 
 ```caldera
 ./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} write_multi_r #{modbus.write_register.start} #{modbus.write_register.values}
+```  
+
+</details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} write_multi_r #{modbus.write_register.start} #{modbus.write_register.values}
 ```  
 
 </details>
@@ -447,6 +511,15 @@ __Ability Command:__
 ```  
 
 </details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} fuzz_c #{modbus.fuzz_coil.start} #{modbus.fuzz_coil.end} #{modbus.fuzz_coil.count} --wait #{modbus.fuzz_coil.wait}
+```  
+
+</details>
 <br>
 
 __Facts:__  
@@ -486,6 +559,15 @@ __Ability Command:__
 
 ```caldera
 ./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} fuzz_r #{modbus.fuzz_register.start} #{modbus.fuzz_register.end} #{modbus.fuzz_register.count} --min #{modbus.fuzz_register.min} --max #{modbus.fuzz_register.max} --wait #{modbus.fuzz_register.wait}
+```  
+
+</details>
+<details>
+<summary>Darwin (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli_darwin #{modbus.server.ip} -p #{modbus.server.port} fuzz_r #{modbus.fuzz_register.start} #{modbus.fuzz_register.end} #{modbus.fuzz_register.count} --min #{modbus.fuzz_register.min} --max #{modbus.fuzz_register.max} --wait #{modbus.fuzz_register.wait}
 ```  
 
 </details>
