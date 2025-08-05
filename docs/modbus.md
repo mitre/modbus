@@ -268,6 +268,15 @@ __Ability Command:__
 
 </details>
 <details>
+<summary>Linux (sh)</summary>
+<br>
+
+```caldera
+./modbus_cli #{modbus.server.ip} -p #{modbus.server.port} read_ir #{modbus.read_input.start} #{modbus.read_input.count}
+```  
+
+</details>
+<details>
 <summary>Darwin (sh)</summary>
 <br>
 
