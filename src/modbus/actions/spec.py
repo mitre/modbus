@@ -15,6 +15,19 @@ from modbus.client import ModbusClient
 
 
 @ModbusClient.action
+def read_device_info(self, level=3, device_id=1):
+    """
+    Protocol Function
+    43 (0x2B) -- Encapsulated Interface Transport
+    MEI type: 14 (0x0E) - Read Device Information
+    """
+    self.log.info(
+        f"Read Device Info -- [Device ID: {device_id}]"
+    )
+    result = self.client.read_device_information(read_code=level, object_id=0)
+    return result
+
+@ModbusClient.action
 def read_coils(self, address, count, device_id=1):
     """
     Protocol Function
