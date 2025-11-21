@@ -2,9 +2,7 @@ name: Build Payloads
 
 on:
   push:
-    branches: [add-ci]
-  pull_request:
-    branches: [add-ci]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -76,7 +74,7 @@ jobs:
   commit:
     needs: [build]
     runs-on: ubuntu-latest
-    if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/add-ci'
+    if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v6
 
