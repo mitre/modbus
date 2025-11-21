@@ -35,12 +35,28 @@ jobs:
           make build/local
           cp dist/modbus_cli ../payloads/
 
+      - name: Upload Linux payload
+        if: matrix.os == 'ubuntu-22.04'
+        uses: actions/upload-artifact@v4
+        with:
+          name: payload-linux
+          path: payloads/modbus_cli
+          retention-days: 1
+
       - name: Build with PyInstaller (Windows)
         if: matrix.os == 'windows-2022'
         run: |
           cd src
           make build/local
           copy dist\modbus_cli.exe ..\payloads\
+
+      - name: Upload Windows payload
+        if: matrix.os == 'windows-2022'
+        uses: actions/upload-artifact@v4
+        with:
+          name: payload-windows
+          path: payloads\modbus_cli.exe
+          retention-days: 1
 
       - name: Build with PyInstaller (Darwin)
         if: matrix.os == 'macos-14'
@@ -49,11 +65,12 @@ jobs:
           make build/local
           cp dist/modbus_cli ../payloads/modbus_cli_darwin
 
-      - name: Upload artifacts for commit
+      - name: Upload Darwin payload
+        if: matrix.os == 'macos-14'
         uses: actions/upload-artifact@v4
         with:
-          name: payloads
-          path: payloads/
+          name: payload-darwin
+          path: payloads/modbus_cli_darwin
           retention-days: 1
 
   commit:
@@ -63,10 +80,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: Download artifacts
+      - name: Download payloads
         uses: actions/download-artifact@v4
         with:
-          name: payloads
+          pattern: payloads-*
+          merge-multiple: true
           path: payloads/
 
       - name: Check for changes
