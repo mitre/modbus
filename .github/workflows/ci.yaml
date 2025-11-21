@@ -32,7 +32,7 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-22.04' }}
         run: |
           cd src
-          make build/local
+          pyinstaller -F modbus_cli.py
           cp dist/modbus_cli ../payloads/
 
       - name: Upload Linux payload
@@ -47,7 +47,7 @@ jobs:
         if: ${{ matrix.os == 'windows-2022' }}
         run: |
           cd src
-          make build/local
+          pyinstaller -F modbus_cli.py
           copy dist\modbus_cli.exe ..\payloads\
 
       - name: Upload Windows payload
@@ -62,7 +62,7 @@ jobs:
         if: ${{ matrix.os == 'macos-14' }}
         run: |
           cd src
-          make build/local
+          pyinstaller -F modbus_cli.py
           cp dist/modbus_cli ../payloads/modbus_cli_darwin
 
       - name: Upload Darwin payload
@@ -83,7 +83,7 @@ jobs:
       - name: Download payloads
         uses: actions/download-artifact@v4
         with:
-          pattern: payloads-*
+          pattern: payload-*
           merge-multiple: true
           path: payloads/
 
