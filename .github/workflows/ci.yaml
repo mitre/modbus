@@ -2,9 +2,9 @@ name: Build Payloads
 
 on:
   push:
-    branches: [ add-ci ]
+    branches: [add-ci]
   pull_request:
-    branches: [ add-ci ]
+    branches: [add-ci]
   workflow_dispatch:
 
 jobs:
@@ -15,77 +15,77 @@ jobs:
         os: [ubuntu-22.04, windows-2022, macos-14]
 
     steps:
-    - uses: actions/checkout@v6
+      - uses: actions/checkout@v6
 
-    - name: Set up Python
-      uses: actions/setup-python@v6
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
 
-    - name: Install dependencies
-      run: |
+      - name: Install dependencies
+        run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
           pip install -r src/requirements.txt
 
-    - name: Build with PyInstaller (Linux)
-      if: matrix.os == "ubuntu-22.04"
-      run: |
+      - name: Build with PyInstaller (Linux)
+        if: matrix.os == 'ubuntu-22.04'
+        run: |
           cd src
           make build/local
           cp dist/modbus_cli ../payloads/
 
-    - name: Build with PyInstaller (Windows)
-      if: matrix.os == "windows-2022"
-      run: |
+      - name: Build with PyInstaller (Windows)
+        if: matrix.os == 'windows-2022'
+        run: |
           cd src
           make build/local
           copy dist\modbus_cli.exe ..\payloads\
 
-    - name: Build with PyInstaller (Darwin)
-      if: matrix.os == "macos-14"
-      run: |
+      - name: Build with PyInstaller (Darwin)
+        if: matrix.os == 'macos-14'
+        run: |
           cd src
           make build/local
           cp dist/modbus_cli ../payloads/modbus_cli_darwin
 
-    - name: Upload artifacts for commit
-      uses: actions/upload-artifact@v4
-      with:
-        name: payloads
-        path: payloads/
-        retention-days: 1
+      - name: Upload artifacts for commit
+        uses: actions/upload-artifact@v4
+        with:
+          name: payloads
+          path: payloads/
+          retention-days: 1
 
   commit:
-    needs: [ build ]
+    needs: [build]
     runs-on: ubuntu-latest
     if: github.event_name != 'workflow_dispatch' && github.ref == 'refs/heads/add-ci'
     steps:
-    - uses: actions/checkout@v6
+      - uses: actions/checkout@v6
 
-    - name: Download artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: payloads
-        path: payloads/
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: payloads
+          path: payloads/
 
-    - name: Check for changes
-      id: changes
-      run: |
+      - name: Check for changes
+        id: changes
+        run: |
           git diff --quiet && HEAD^ HEAD payloads/ || echo "::set-output name=changed::true"
 
-    - name: Commit and push changes
-      if: steps.changes.outputs.changed == 'true'
-      run: |
+      - name: Commit and push changes
+        if: steps.changes.outputs.changed == 'true'
+        run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git config add payloads/
           git commit -m "chore: update payloads"
           git push
-      env:
-        GIHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GIHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Manual trigger fallback
-      if: github.event_name == 'workflow_dispatch'
-      run: |
-        echo "commit job ignored for manual trigger."
+      - name: Manual trigger fallback
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "commit job ignored for manual trigger."
