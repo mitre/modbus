@@ -29,14 +29,14 @@ jobs:
           pip install -r src/requirements.txt
 
       - name: Build with PyInstaller (Linux)
-        if: matrix.os == 'ubuntu-22.04'
+        if: ${{ matrix.os == 'ubuntu-22.04' }}
         run: |
           cd src
           make build/local
           cp dist/modbus_cli ../payloads/
 
       - name: Upload Linux payload
-        if: matrix.os == 'ubuntu-22.04'
+        if: ${{ matrix.os == 'ubuntu-22.04' }}
         uses: actions/upload-artifact@v4
         with:
           name: payload-linux
@@ -44,14 +44,14 @@ jobs:
           retention-days: 1
 
       - name: Build with PyInstaller (Windows)
-        if: matrix.os == 'windows-2022'
+        if: ${{ matrix.os == 'windows-2022' }}
         run: |
           cd src
           make build/local
           copy dist\modbus_cli.exe ..\payloads\
 
       - name: Upload Windows payload
-        if: matrix.os == 'windows-2022'
+        if: ${{ matrix.os == 'windows-2022' }}
         uses: actions/upload-artifact@v4
         with:
           name: payload-windows
@@ -59,14 +59,14 @@ jobs:
           retention-days: 1
 
       - name: Build with PyInstaller (Darwin)
-        if: matrix.os == 'macos-14'
+        if: ${{ matrix.os == 'macos-14' }}
         run: |
           cd src
           make build/local
           cp dist/modbus_cli ../payloads/modbus_cli_darwin
 
       - name: Upload Darwin payload
-        if: matrix.os == 'macos-14'
+        if: ${{ matrix.os == 'macos-14' }}
         uses: actions/upload-artifact@v4
         with:
           name: payload-darwin
@@ -90,10 +90,15 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet && HEAD^ HEAD payloads/ || echo "::set-output name=changed::true"
+          git add payloads/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Commit and push changes
-        if: steps.changes.outputs.changed == 'true'
+        if: ${{ steps.changes.outputs.changed == 'true' }}
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
@@ -101,9 +106,9 @@ jobs:
           git commit -m "chore: update payloads"
           git push
         env:
-          GIHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Manual trigger fallback
-        if: github.event_name == 'workflow_dispatch'
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           echo "commit job ignored for manual trigger."
