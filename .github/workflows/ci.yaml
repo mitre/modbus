@@ -1,0 +1,102 @@
+name: Build Payloads
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-2022, macos-14]
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install -r src/requirements.txt
+
+      - name: Build with PyInstaller (Linux)
+        if: ${{ matrix.os == 'ubuntu-22.04' }}
+        run: |
+          cd src
+          pyinstaller -F modbus_cli.py
+          cp dist/modbus_cli ../payloads/
+
+      - name: Upload Linux payload
+        if: ${{ matrix.os == 'ubuntu-22.04' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: payload-linux
+          path: payloads/modbus_cli
+          retention-days: 1
+
+      - name: Build with PyInstaller (Windows)
+        if: ${{ matrix.os == 'windows-2022' }}
+        run: |
+          cd src
+          pyinstaller -F modbus_cli.py
+          copy dist\modbus_cli.exe ..\payloads\
+
+      - name: Upload Windows payload
+        if: ${{ matrix.os == 'windows-2022' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: payload-windows
+          path: payloads\modbus_cli.exe
+          retention-days: 1
+
+      - name: Build with PyInstaller (Darwin)
+        if: ${{ matrix.os == 'macos-14' }}
+        run: |
+          cd src
+          pyinstaller -F modbus_cli.py
+          cp dist/modbus_cli ../payloads/modbus_cli_darwin
+
+      - name: Upload Darwin payload
+        if: ${{ matrix.os == 'macos-14' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: payload-darwin
+          path: payloads/modbus_cli_darwin
+          retention-days: 1
+
+  create-pr:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download payloads
+        uses: actions/download-artifact@v4
+        with:
+          pattern: payload-*
+          merge-multiple: true
+          path: payloads/
+
+      - name: Create PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: main
+          branch: ci/update-payloads
+          title: Update payloads
+          commit-message: 'chore: update payloads'
+          body: Automated update of payloads.
+          add-paths: payloads
+          delete-branch: true
