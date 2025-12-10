@@ -284,6 +284,14 @@ def add_scan_subparser(subparsers):
         "scan",
         help="Scan Modbus Device: Automatically discover and read all available registers",
     )
+    parser.add_argument(
+        "--start",
+        dest="start",
+        type=to_16bit_uint,
+        required=False,
+        default=0,
+        help="Starting address for the scan [0-65535] (default: 0)",
+    )
     add_device_id_arg(parser)
 
 
@@ -466,7 +474,7 @@ def do_action(client, args):
     elif args.action.lower() == "scan":
         print("[*] Scanning Modbus device")
         try:
-            result = client.scan_modbus(args.device_id)
+            result = client.scan_modbus(args.start, args.device_id)
         except Exception as err:
             print(f"Scan failed: {err}")
             log.error(err)
