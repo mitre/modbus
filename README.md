@@ -57,13 +57,24 @@ build guidance.
 For detailed instructions and ability descriptions, see the
 [fieldmanual documention](/docs/modbus.md#usage).
 
-### Virtual Test Device: [Wildcat Dam](https://github.com/mitre/wildcatdam)
+## Virtual OT Simulators
 
-To help you test the Modbus plugin without any additional hardware
-requirements, we provide a virtual Modbus device called **Wildcat Dam**. This
-simulated dam controller mimics the behavior of a real-world Modbus device,
-allowing you to test the plugin and build your understanding of the Modbus
-protocol without needing access to physical hardware.
+To help you test the Modbus plugin without any additional hardware requirements,
+MITRE provides open-source simulators that act as software targets.
+
+### [Aloha Water Treatment](https://github.com/mitre/aloha-water-treatment)
+
+Aloha Water Treatment is a simulated water treatment plant with Modbus and
+BACnet process control, letting you test the Modbus plugin without physical
+hardware.
+
+To get started, follow the instructions [here](https://github.com/mitre/aloha-water-treatment).
+
+### [Wildcat Dam](https://github.com/mitre/wildcatdam)
+
+Wildcat Dam is a simulated dam controller that mimics the behavior of a
+real-world Modbus device, letting you test the Modbus plugin without physical
+hardware.
 
 To get started, follow the instructions [here](https://github.com/mitre/wildcatdam).
 
