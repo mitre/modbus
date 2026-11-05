@@ -124,12 +124,12 @@ def _read_batch(read_func, start_address, highest_addr, device_id):
 
 
 @ModbusClient.action
-def scan_modbus(self, device_id=1):
+def scan_modbus(self, start_address=0, device_id=1):
     """
     Protocol Function
     Modbus Scan Registers
     """
-    address = 0
+    address = start_address
     self.log.info(
         f"Scanning Modbus device -- [Start Address: {address}, Device ID: {device_id}]"
     )
