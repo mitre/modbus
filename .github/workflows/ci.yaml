@@ -16,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, windows-2022, macos-14]
+        os: [ubuntu-22.04, windows-2022, macos-latest]
 
     steps:
       - uses: actions/checkout@v6
@@ -63,14 +63,14 @@ jobs:
           retention-days: 1
 
       - name: Build with PyInstaller (Darwin)
-        if: ${{ matrix.os == 'macos-14' }}
+        if: ${{ matrix.os == 'macos-latest' }}
         run: |
           cd src
           pyinstaller -F modbus_cli.py
           cp dist/modbus_cli ../payloads/modbus_cli_darwin
 
       - name: Upload Darwin payload
-        if: ${{ matrix.os == 'macos-14' }}
+        if: ${{ matrix.os == 'macos-latest' }}
         uses: actions/upload-artifact@v4
         with:
           name: payload-darwin
