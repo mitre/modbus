@@ -4,7 +4,7 @@ from app.utility.base_parser import BaseParser
 import re
 
 
-DATA_SET_RE = re.compile(r"^\[\*\]\s+Read\s+(\w+(?:\s+\w+)?)\s+\((\d+)\s+found,\s+starting\s+at\s+address\s+(\d+)\)$")
+DATA_SET_RE = re.compile(r"^\[\*\]\s+Read\s+(\w+(?:\s+\w+)?)\s+\((\d+)\s+found,\s+starting\s+at\s+address\s+(\d+)\)(?:\s+\[Device:\s*\d+\])?$")
 
 
 class Parser(BaseParser):

@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.1] - 2026-11-14
+
+### Fixed
+
+- Device scan parser, which never matched the scan output, so the scan collected no facts
+
 ## [1.6.0] - 2026-11-11
 
 ### Added
@@ -71,7 +77,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   [MITRE Caldera™ for OT](https://github.com/mitre/caldera-ot). Provides 10
   unique Caldera adversary emulation abilities specific to the Modbus protocol.
 
-[unreleased]: https://github.com/mitre/modbus/compare/v1.6.0...HEAD
+[unreleased]: https://github.com/mitre/modbus/compare/v1.6.1...HEAD
+[1.6.1]: https://github.com/mitre/modbus/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/mitre/modbus/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/mitre/modbus/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/mitre/modbus/compare/v1.3.0...v1.4.0
